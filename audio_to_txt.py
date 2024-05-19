@@ -21,11 +21,19 @@ def convert_audio(audio):
 
     config = speech.RecognitionConfig(
         encoding = speech.RecognitionConfig.AudioEncoding.LINEAR16,
-        sample_rate_hertz = 48000,
+        sample_rate_hertz = 44100,
         language_code= 'en-US'
     )
 
     response = clt.recognize(config = config, audio= audio)
+    response_string = str(response)
+    for line in response_string.splitlines():
+        if "transcript:" in line:
+            transcript_line = line.strip().capitalize()
+            transcript_line = transcript_line.capitalize()
+            break
+
+# Printing the result
     print(response)
 
     return response
