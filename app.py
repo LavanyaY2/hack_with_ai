@@ -52,7 +52,7 @@ if st.session_state.button == "upload":
             with open(file_path, 'r') as f:
                 toread = f.read()
                 f.close()
-                summary = txt_to_notes.get_summary(toread)
+                summary = txt_to_notes.notarize(toread)
                 st.write(summary)
                 summary_str = f'Summary: {summary}'
                 st.download_button('Download Text File', summary_str)
@@ -78,7 +78,7 @@ elif st.session_state.button == "record":
             with open(file_path, 'r') as f:
                 toread = f.read()
                 f.close()
-                summary = txt_to_notes.get_summary(toread)
+                summary = txt_to_notes.notarize(toread)
                 st.write(summary)
                 summary_str = f'Summary: {summary}'
                 st.download_button('Download Text File', summary_str)

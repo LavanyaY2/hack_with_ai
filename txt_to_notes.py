@@ -18,8 +18,15 @@ genai.configure(api_key=GOOGLE_API_KEY)
 
 model = genai.GenerativeModel('gemini-pro')
 
-def get_summary(transcript):
+def notarize(transcript):
   prompt = """can you turn the following block of text into sections by topic, with headings and subheadings?:
+
+  """ + transcript
+  response = model.generate_content(prompt)
+  return response.text
+
+def summarize(transcript):
+  prompt = """can you give a brief summary of the following block of text?:
 
   """ + transcript
   response = model.generate_content(prompt)
