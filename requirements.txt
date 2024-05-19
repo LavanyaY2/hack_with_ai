@@ -1,2 +1,3 @@
 pyarrow
 st_audiorec
+streamlit-audiorec
