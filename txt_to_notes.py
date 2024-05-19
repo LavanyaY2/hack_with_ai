@@ -3,8 +3,8 @@ import textwrap
 
 import google.generativeai as genai
 
-from IPython.display import display
-from IPython.display import Markdown
+# from IPython.display import display
+# from IPython.display import Markdown
 
 def to_markdown(text):
   text = text.replace('•', '  *')
@@ -29,4 +29,4 @@ with open("Voice 038.txt", 'r') as f:
   toread = f.read()
   f.close()
 
-get_summary(toread)
+print(get_summary(toread))
