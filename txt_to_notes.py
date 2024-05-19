@@ -24,9 +24,3 @@ def get_summary(transcript):
   """ + transcript
   response = model.generate_content(prompt)
   return response.text
-
-# with open("Voice 038.txt", 'r') as f:
-#   toread = f.read()
-#   f.close()
-
-# print(get_notes(toread))

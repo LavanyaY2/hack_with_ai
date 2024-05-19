@@ -21,7 +21,7 @@ def convert_audio(audio):
 
     config = speech.RecognitionConfig(
         encoding = speech.RecognitionConfig.AudioEncoding.LINEAR16,
-        sample_rate_hertz = 44100,
+        sample_rate_hertz = 48000,
         language_code= 'en-US'
     )
 
@@ -32,8 +32,5 @@ def convert_audio(audio):
             transcript_line = line.strip().capitalize()
             transcript_line = transcript_line.capitalize()
             break
-
-# Printing the result
-    print(response)
 
     return response

@@ -8,6 +8,9 @@ from io import StringIO, BytesIO
 from st_audiorec import st_audiorec
 import json
 
+file_path = "input_audio.txt"
+summary_str = ""
+
 st.header("👋 Welcome to VoiceNotes!", divider = "rainbow")
 
 container = st.container(border=True)
@@ -37,6 +40,22 @@ if st.session_state.button == "upload":
         response = audio_to_txt.convert_audio(audio)
         transcript = response.results[0].alternatives[0].transcript
         result_str = f'Transcript: {transcript}'
+        col3, col4 = st.columns(2, gap="small")
+        with col3:
+            if st.button("Give me a short summary"):
+                st.session_state.button = "short_summary"
+        with col4:
+            if st.button("Summarize based on sub-sections"):
+                st.session_state.button = "sub_sections"
+
+        if st.session_state.button == "sub_sections":
+            with open(file_path, 'r') as f:
+                toread = f.read()
+                f.close()
+                summary = txt_to_notes.get_summary(toread)
+                st.write(summary)
+                summary_str = f'Summary: {summary}'
+                st.download_button('Download Text File', summary_str)
 
 elif st.session_state.button == "record":
     wav_audio_data = st_audiorec()
@@ -47,22 +66,22 @@ elif st.session_state.button == "record":
         transcript = response.results[0].alternatives[0].transcript
         result_str = f'Transcript: {transcript}'
 
+        col3, col4 = st.columns(2, gap="small")
+        with col3:
+            if st.button("Give me a short summary"):
+                st.session_state.button = "short_summary"
+        with col4:
+            if st.button("Summarize based on sub-sections"):
+                st.session_state.button = "sub_sections"
 
-file_path = "input_audio.txt"
+        if st.session_state.button == "sub_sections":
+            with open(file_path, 'r') as f:
+                toread = f.read()
+                f.close()
+                summary = txt_to_notes.get_summary(toread)
+                st.write(summary)
+                summary_str = f'Summary: {summary}'
+                st.download_button('Download Text File', summary_str)
+
 with open(file_path, "w") as f:
     f.write(result_str)
-
-col3, col4 = st.columns(2, gap="small")
-with col3:
-    if st.button("Give me a short summary"):
-        st.session_state.button = "short_summary"
-with col4:
-    if st.button("Summarize based on sub-sections"):
-        st.session_state.button = "sub_sections"
-
-if st.session_state.button == "sub_sections":
-    with open(file_path, 'r') as f:
-        toread = f.read()
-        f.close()
-        summary = txt_to_notes.get_summary(toread)
-        st.write(summary)
